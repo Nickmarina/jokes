@@ -7,6 +7,7 @@ const { UriBuilder } = require("uu_appg01_server").Uri;
 const { LoggerFactory } = require("uu_appg01_server").Logging;
 const { AppClient } = require("uu_appg01_server");
 const Errors = require("../api/errors/joke-error.js");
+const {BinaryStoreError} = require("uu_appg01_binarystore");
 
 const WARNINGS = {
   createUnsupportedKeys: {
@@ -23,6 +24,9 @@ class JokeAbl {
       this.validator = Validator.load();
       this.jokesMainDao = DaoFactory.getDao("jokesMain");
       this.jokeDao = DaoFactory.getDao("joke");
+      // this.jokeDao.createSchema();
+      this.jokeImageDao = DaoFactory.getDao("jokeImage");
+      // this.jokeImageDao.createSchema();   
     }
 
     async create(uri, dtoIn, session, uuAppErrorMap = {}) {
@@ -51,6 +55,21 @@ class JokeAbl {
         //  Checks if the dtoIn is filled.
         // 1- dtoIn.image
         // 2- calls the createBinary method
+
+        // hds 2
+      let jokeImage;
+      if (dtoIn.image) {
+        try {
+          jokeImage = await this.jokeImageDao.create({awid}, dtoIn.image);
+        } catch (e) {
+          if (e instanceof BinaryStoreError) { // A3
+            throw new Errors.Create.JokeImageDaoCreateFailed({uuAppErrorMap}, e);
+          }
+          throw e;
+        }
+      dtoIn.image = jokeImage.code;
+    }
+
 
         // HDS 4
         // categoryIdList 

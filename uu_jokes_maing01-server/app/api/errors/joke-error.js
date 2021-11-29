@@ -36,7 +36,15 @@ const Create = {
         this.code = `${Create.UC_CODE}jokeDaoCreateFailed`;
         this.message = "Create joke by joke DAO create failed.";
     }
-  }
+  },
+
+  JokeImageDaoCreateFailed: class extends JokesMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}jokeImageDaoCreateFailed`;
+      this.message = "Create of jokeImage by jokeImage Dao create failed.";
+    }
+  },
 }
 
 const Get = {
