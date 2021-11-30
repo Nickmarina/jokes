@@ -1,13 +1,12 @@
 {
   "{asid}": {
-    "profileList": ["AsidAuthorities", "AsidExecutives", "AsidLicenseOwner", "Public"],
-    "useCaseMap": {
-    }
+    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public"],
+    "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities", "Executives", "AwidLicenseOwner", "Public"],
+    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public"],
     "useCaseMap": {
-      "sys/uuSubAppInstance/init":{
+      "sys/uuSubAppInstance/init": {
         "sysStateList": ["active"],
         "profileList": ["AwidLicenseOwner"]
       },
@@ -20,15 +19,15 @@
       },
       "sys/uuAppWorkspace/initUve": {
         "sysStateList": ["created"],
-        "profileList": ["Public", "AwidLicenseOwner"]
+        "profileList": ["Public","AwidLicenseOwner"]
       },
-      "joke/create":{
-        "sysStateList": ["created", "active"],
-        "profileList": ["Authorities", "Executives"]
+      "joke/create": {
+        "sysStateList": ["created","active"],
+        "profileList": ["Authorities","Executives"]
       },
-      "joke/get":{
+      "joke/get": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives"]
+        "profileList": ["Authorities","Executives"]
       },
       "joke/getImageData": {
         "sysStateList": ["active"],

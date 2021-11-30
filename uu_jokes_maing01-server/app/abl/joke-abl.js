@@ -40,9 +40,8 @@ class JokeAbl {
             throw new Errors.Create.jokesDoesNotExist({uuAppErrorMap}, {awid})
         }
 
-        if (uuJokes.state !== 'active'&& uuJokes.state !== 'underConstruction') {
-            throw new Errors.Create.jokesIsNotInCorrectState({uuAppErrorMap},
-                 {expectedStateList: ['active', 'underConstruction'], actualState: uuJokes.state})
+        if (uuJokes?.state !== 'underConstruction' && uuJokes?.state !== 'active') {
+          throw new Errors.Create.jokesIsNotInCorrectState({uuAppErrorMap}, {awid, expectedState: "active" })
         }
 
         // HDS 2 
@@ -107,7 +106,7 @@ class JokeAbl {
   
         if (uuJokes.state !== 'active'&& uuJokes.state !== 'underConstruction') {
             throw new Errors.Get.jokesIsNotInCorrectState({uuAppErrorMap},
-                {expectedStateList: ['active', 'underConstruction'], actualState: uuJokes.state})
+                { awid , expectedStateList: ['active', 'underConstruction'], actualState: uuJokes.state})
         }
 
         // HDS 2

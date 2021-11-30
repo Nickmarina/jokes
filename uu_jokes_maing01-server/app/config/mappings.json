@@ -16,12 +16,12 @@
         "httpMethod": "GET",
         "type": "UVE"
       },
-      "joke/create":{
+      "joke/create": {
         "realization": "api/controllers/JokeController.create",
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "joke/get":{
+      "joke/get": {
         "realization": "api/controllers/JokeController.get",
         "httpMethod": "GET",
         "type": "CMD"
