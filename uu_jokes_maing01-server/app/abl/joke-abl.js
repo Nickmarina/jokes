@@ -104,11 +104,9 @@ class JokeAbl {
             throw new Errors.Get.jokesDoesNotExist({uuAppErrorMap}, {awid})
         }
   
-        if (uuJokes.state !== 'active'&& uuJokes.state !== 'underConstruction') {
-            throw new Errors.Get.jokesIsNotInCorrectState({uuAppErrorMap},
-                { awid , expectedStateList: ['active', 'underConstruction'], actualState: uuJokes.state})
+        if (uuJokes?.state !== 'underConstruction' && uuJokes?.state !== 'active') {
+          throw new Errors.Get.jokesIsNotInCorrectState({uuAppErrorMap}, {awid, expectedState: "active" })
         }
-
         // HDS 2
         const validationResult = this.validator.validate("jokeGetDtoInType", dtoIn);
         uuAppErrorMap = ValidationHelper.processValidationResult(
