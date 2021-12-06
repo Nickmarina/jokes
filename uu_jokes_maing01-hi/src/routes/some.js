@@ -6,6 +6,7 @@ import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
 
 import Config from "./config/config.js";
+import Css from "../bricks/item.css";
 import Lsi from "../config/lsi.js";
 import WelcomeRow from "../bricks/welcome-row.js";
 //@@viewOff:imports
@@ -81,17 +82,17 @@ export const Some = createVisualComponent({
 
     const handleAdd =()=>{
       const newItem = {
-        id: Math.floor(Math.random() * (10000 - 6 + 1) + 6),
+        id: UU5.Common.Tools.generateUUID(),
         name: "Name",
         desc: "Some desc ",
         rate: Math.floor(Math.random() * (5 - 1 + 1) + 1),
       }
-      setItemList(itemList=> [...itemList,newItem])
+      setItemList(itemList=> [newItem, ...itemList])
     }
 
     const handleDelete =(item)=>{
-      setItemList(itemList.filter(it => it.id !== item.id))
-      if(itemList.length<2){
+      setItemList(itemList => itemList.filter(it => it.id !== item.id))
+      if(itemList.length<=2){
         setCount(2)
       }
     }
@@ -111,25 +112,27 @@ export const Some = createVisualComponent({
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     return (
-      <div {...attrs}>
+      <UU5.Bricks.Container className={Css.main()}>
+      {/* // <div {...attrs} className={Css.main()}> */}
          <UU5.Bricks.Header level="1" content="Items"/>
          <UU5.Bricks.Button colorSchema="green" bgStyle="outline" content="+ item" onClick={handleAdd}/>
-         <UU5.Bricks.Ul type="none">
+         <UU5.Bricks.Ul type="none" className={Css.list()}>
         {itemList.slice(0, count).map(item=> (
-          <UU5.Bricks.Li key={item.id}>
-            <UU5.Bricks.Card className="uu5-common-padding-s" width={700}>
-            <UU5.Bricks.Text content={item.name}/>
+          <UU5.Bricks.Li key={item.id} className={Css.item()}>
+            <UU5.Bricks.Card className="uu5-common-padding-s" width={800}>
+            <UU5.Bricks.Header colorSchema="cyan"  content={item.name} level="6"/>
             <UU5.Bricks.Text content={item.desc}/>
             <UU5.Bricks.Rating value={item.rate} />
-            <UU5.Bricks.Button colorSchema="red" bgStyle="outline" onClick={() => handleDelete(item)}><UU5.Bricks.Icon icon="uu5-error-circle"/></UU5.Bricks.Button>
+            <UU5.Bricks.Button colorSchema="red" bgStyle="outline" onClick={() => handleDelete(item)} className={Css.deleteBtn()}><UU5.Bricks.Icon icon="plus4u-bin"/></UU5.Bricks.Button>
             </UU5.Bricks.Card>
           </UU5.Bricks.Li>
          ) )}
         </UU5.Bricks.Ul>
         {itemList.length>count
-          ?<UU5.Bricks.Button content="More items" onClick={handleChangeCount}/>
+          ?<UU5.Bricks.Button content="More items" onClick={handleChangeCount} colorSchema="cyan" bgStyle="outline"/>
           : null}
-      </div>
+      {/* </div> */}
+      </UU5.Bricks.Container>
     );
     //@@viewOff:render
   },
