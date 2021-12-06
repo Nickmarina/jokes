@@ -2,6 +2,7 @@
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import { createVisualComponent, useState } from "uu5g04-hooks";
+import {ItemsListContext} from '../core/itemsList/context/context'
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
 
@@ -9,11 +10,13 @@ import Config from "./config/config.js";
 import Css from "../bricks/item.css";
 import Lsi from "../config/lsi.js";
 import WelcomeRow from "../bricks/welcome-row.js";
+
+import ItemsList from "../core/itemsList/items-list";
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "Home",
+  displayName: Config.TAG + "Some",
   //@@viewOff:statics
 };
 
@@ -90,49 +93,22 @@ export const Some = createVisualComponent({
       setItemList(itemList=> [newItem, ...itemList])
     }
 
-    const handleDelete =(item)=>{
-      setItemList(itemList => itemList.filter(it => it.id !== item.id))
-      if(itemList.length<=2){
-        setCount(2)
-      }
-    }
     const handleChangeCount = () =>{
       setCount(prev=> prev+2)
     }
 
-    //@@viewOn:private
-    //@@viewOff:private
-
-    //@@viewOn:interface
-    //@@viewOff:interface
-    // const handleDelete= (id)=>{
-    //   const newList = itemList.filter(item => item.id !== id)
-    //   console.log(newList)
-    // }
-    //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     return (
+      <ItemsListContext.Provider value={itemList}>
       <UU5.Bricks.Container className={Css.main()}>
-      {/* // <div {...attrs} className={Css.main()}> */}
          <UU5.Bricks.Header level="1" content="Items"/>
          <UU5.Bricks.Button colorSchema="green" bgStyle="outline" content="+ item" onClick={handleAdd}/>
-         <UU5.Bricks.Ul type="none" className={Css.list()}>
-        {itemList.slice(0, count).map(item=> (
-          <UU5.Bricks.Li key={item.id} className={Css.item()}>
-            <UU5.Bricks.Card className="uu5-common-padding-s" width={800}>
-            <UU5.Bricks.Header colorSchema="cyan"  content={item.name} level="6"/>
-            <UU5.Bricks.Text content={item.desc}/>
-            <UU5.Bricks.Rating value={item.rate} />
-            <UU5.Bricks.Button colorSchema="red" bgStyle="outline" onClick={() => handleDelete(item)} className={Css.deleteBtn()}><UU5.Bricks.Icon icon="plus4u-bin"/></UU5.Bricks.Button>
-            </UU5.Bricks.Card>
-          </UU5.Bricks.Li>
-         ) )}
-        </UU5.Bricks.Ul>
+         <ItemsList setCount={setCount} count={count} setItemList ={setItemList}/>
         {itemList.length>count
           ?<UU5.Bricks.Button content="More items" onClick={handleChangeCount} colorSchema="cyan" bgStyle="outline"/>
           : null}
-      {/* </div> */}
       </UU5.Bricks.Container>
+      </ItemsListContext.Provider>
     );
     //@@viewOff:render
   },
