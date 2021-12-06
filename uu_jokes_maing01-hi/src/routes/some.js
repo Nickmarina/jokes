@@ -45,6 +45,7 @@ export const Some = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
+    const [count, setCount] = useState(2)
     const [itemList, setItemList] = useState([
       {
         id: 1,
@@ -78,7 +79,7 @@ export const Some = createVisualComponent({
       },
     ]);
 
-    const handleClick =()=>{
+    const handleAdd =()=>{
       const newItem = {
         id: Math.floor(Math.random() * (10000 - 6 + 1) + 6),
         name: "Name",
@@ -88,11 +89,15 @@ export const Some = createVisualComponent({
       setItemList(itemList=> [...itemList,newItem])
     }
 
-    // const numbers = [];
-    // for(let i = 0; i<= itemList.length; i++){
-    //   numbers.push(i)
-    // }
-
+    const handleDelete =(item)=>{
+      setItemList(itemList.filter(it => it.id !== item.id))
+      if(itemList.length<2){
+        setCount(2)
+      }
+    }
+    const handleChangeCount = () =>{
+      setCount(prev=> prev+2)
+    }
 
     //@@viewOn:private
     //@@viewOff:private
@@ -108,37 +113,22 @@ export const Some = createVisualComponent({
     return (
       <div {...attrs}>
          <UU5.Bricks.Header level="1" content="Items"/>
-         <UU5.Bricks.Button colorSchema="green" bgStyle="outline" content="+ item" onClick={handleClick}/>
+         <UU5.Bricks.Button colorSchema="green" bgStyle="outline" content="+ item" onClick={handleAdd}/>
          <UU5.Bricks.Ul type="none">
-        {itemList.map(item=> (
+        {itemList.slice(0, count).map(item=> (
           <UU5.Bricks.Li key={item.id}>
             <UU5.Bricks.Card className="uu5-common-padding-s" width={700}>
             <UU5.Bricks.Text content={item.name}/>
             <UU5.Bricks.Text content={item.desc}/>
-            <UU5.Bricks.Text >rate: {item.rate}</UU5.Bricks.Text>
-            <UU5.Bricks.Button colorSchema="red" bgStyle="outline" onClick={()=> {setItemList(itemList.filter(it => it.id !== item.id))}}><UU5.Bricks.Icon icon="uu5-error-circle"/></UU5.Bricks.Button>
+            <UU5.Bricks.Rating value={item.rate} />
+            <UU5.Bricks.Button colorSchema="red" bgStyle="outline" onClick={() => handleDelete(item)}><UU5.Bricks.Icon icon="uu5-error-circle"/></UU5.Bricks.Button>
             </UU5.Bricks.Card>
           </UU5.Bricks.Li>
          ) )}
         </UU5.Bricks.Ul>
-
-        <UU5.Bricks.Pagination
-          items={[1, 2, 3, 4, 5]}
-          borderRadius="8px"
-          activeIndex={1}
-          range={2}
-          onChanged={(comp, index, newActive) => console.log(index)}
-        />
-        {/* <UU5.Bricks.Pagination
-          items={[1, 2, 3, 4, 5]}
-          activeIndex={1}
-          range={3}
-          prevLabel="Previous"
-          nextLabel="Next"
-          size="s"
-          onChanged={(comp, index, newActive) => console.log(comp, index, newActive)}
-          background
-        /> */}
+        {itemList.length>count
+          ?<UU5.Bricks.Button content="More items" onClick={handleChangeCount}/>
+          : null}
       </div>
     );
     //@@viewOff:render
