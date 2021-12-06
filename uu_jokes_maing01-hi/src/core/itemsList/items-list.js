@@ -59,6 +59,14 @@ export const ItemsList = createVisualComponent({
       }
     }
 
+    function handleOnBtnClick(item){
+      props.modal.current.open({
+        header: item.name,
+        content: item.desc,
+        footer: <UU5.Bricks.Button content="Close" onClick={props.modal.current.close}/>
+      })
+    }
+
     //@@viewOn:private
     //@@viewOff:private
 
@@ -72,23 +80,22 @@ export const ItemsList = createVisualComponent({
         {itemList.slice(0, props.count).map(item=> (
           
           <UU5.Bricks.Li key={item.id} className={Css.item()}>
-           
-            <UU5.Bricks.Card className="uu5-common-padding-s" width={800}>
-            <UU5.Bricks.Header colorSchema="cyan"  content={item.name} level="6"/>
-
-           <UU5.Bricks.Button
-          content={item.desc}
-          onClick={() => Page.modal.open({
-            header: "Header",
-            footer: "Footer",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sagittis urna vel ex interdum, nec auctor mauris sollicitudin. Vivamus ut erat massa. Aenean placerat orci in erat aliquet, in molestie sem sagittis. Quisque euismod est nulla, ut gravida lorem molestie non. Duis vitae augue id eros euismod condimentum vitae gravida lacus. Aliquam erat volutpat."
-          })}
-        />
-
-            <UU5.Bricks.Text content={item.desc}/>
-            <UU5.Bricks.Rating value={item.rate} />
-            <UU5.Bricks.Button colorSchema="red" bgStyle="outline" onClick={() => handleDelete(item)} className={Css.deleteBtn()}><UU5.Bricks.Icon icon="plus4u-bin"/></UU5.Bricks.Button>
-            </UU5.Bricks.Card>
+           <UU5.Bricks.Card className="uu5-common-padding-s" width={800}> 
+              <UU5.Bricks.Header colorSchema="cyan"  content={item.name} level="6"/>
+              <UU5.Bricks.Text content={item.desc}/>
+              <UU5.Bricks.Rating value={item.rate} />   
+              <UU5.Bricks.Button className={Css.moreInfoBtn()} content="More info..." colorSchema="cyan" bgStyle="outline" onClick={()=>handleOnBtnClick(item)}/>
+           {/* SECOND SOLUTION
+           <UU5.Bricks.LinkModal
+            children=  {
+            <div>
+              <UU5.Bricks.Header colorSchema="cyan"  content={item.name} level="6"/>
+              <UU5.Bricks.Rating value={item.rate} />
+            </div>
+         } 
+         component={ <UU5.Bricks.Text content={item.desc}/>}/>   */}
+        <UU5.Bricks.Button colorSchema="red" bgStyle="outline" onClick={() => handleDelete(item)} className={Css.deleteBtn()}><UU5.Bricks.Icon icon="plus4u-bin"/></UU5.Bricks.Button> 
+         </UU5.Bricks.Card>
           </UU5.Bricks.Li>
          ) )}
         </UU5.Bricks.Ul>

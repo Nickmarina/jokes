@@ -24,9 +24,15 @@ const deleteBtn =() => Config.Css.css `
   height: 40px;
 `;
 
+const moreInfoBtn =() => Config.Css.css `
+  display:block;
+
+`;
+
 export default {
     main,
     list,
     item,
-    deleteBtn
+    deleteBtn,
+    moreInfoBtn
   };

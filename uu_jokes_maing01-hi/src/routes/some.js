@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent, useState, useRef } from "uu5g04-hooks";
 import {ItemsListContext} from '../core/itemsList/context/context'
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
@@ -49,6 +49,7 @@ export const Some = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
+    const modalRef = useRef()
     const [count, setCount] = useState(2)
     const [itemList, setItemList] = useState([
       {
@@ -100,14 +101,15 @@ export const Some = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     return (
       <ItemsListContext.Provider value={itemList}>
-      <UU5.Bricks.Container className={Css.main()}>
-         <UU5.Bricks.Header level="1" content="Items"/>
-         <UU5.Bricks.Button colorSchema="green" bgStyle="outline" content="+ item" onClick={handleAdd}/>
-         <ItemsList setCount={setCount} count={count} setItemList ={setItemList}/>
-        {itemList.length>count
-          ?<UU5.Bricks.Button content="More items" onClick={handleChangeCount} colorSchema="cyan" bgStyle="outline"/>
-          : null}
-      </UU5.Bricks.Container>
+        <UU5.Bricks.Container className={Css.main()}>
+          <UU5.Bricks.Header level="1" content="Items"/>
+          <UU5.Bricks.Button colorSchema="green" bgStyle="outline" content="+ item" onClick={handleAdd}/>
+          <ItemsList setCount={setCount} count={count} setItemList ={setItemList} modal={modalRef}/>
+          {itemList.length>count
+            ?<UU5.Bricks.Button content="More items" onClick={handleChangeCount} colorSchema="cyan" bgStyle="outline"/>
+            : null}
+         <UU5.Bricks.Modal ref_={modalRef}/>
+        </UU5.Bricks.Container>
       </ItemsListContext.Provider>
     );
     //@@viewOff:render
