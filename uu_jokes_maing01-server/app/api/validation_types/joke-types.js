@@ -13,3 +13,6 @@ const jokeCreateDtoInType = shape({
     image: code().isRequired(),
     contentDisposition: oneOf(["inline", "attachment"])
   });
+
+  const listListDtoInType = shape({
+  })

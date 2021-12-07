@@ -32,6 +32,10 @@
       "joke/getImageData": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "joke/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

@@ -19,7 +19,11 @@ const WARNINGS = {
   },
   getImageDataUnsupportedKeys: {
     code: `${Errors.GetImageData.UC_CODE}unsupportedKeys`
-  }
+  },
+
+  listUnsupportedKeys: {
+    code: `${Errors.List.UC_CODE}unsupportedKeys`,
+  },
 }
 
 class JokeAbl {
@@ -155,7 +159,26 @@ class JokeAbl {
       return dtoOut;
     }
 
-
+    async list(awid, dtoIn, uuAppErrorMap) {
+      // HDS 1
+      const validationResult = this.validator.validate("listListDtoInType", dtoIn);
+      uuAppErrorMap = ValidationHelper.processValidationResult(
+          dtoIn,
+          validationResult,
+          WARNINGS.listUnsupportedKeys.code,
+          Errors.List.InvalidDtoIn
+      ); 
+  
+      // HDS 3
+      const  itemList = await this.jokeDao.list(awid)
+  
+      // HDS 4
+      return{
+        ...itemList,
+        uuAppErrorMap
+      }
+    }
+    
 }
 
 module.exports = new JokeAbl();

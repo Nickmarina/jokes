@@ -1,10 +1,11 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
-import { createVisualComponent} from "uu5g04-hooks";
+import { createVisualComponent, useContext} from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
 import {useItemsList} from "./context/context.js";
+
 
 import Config from "../../config/config.js";
 import Css from "../../bricks/item.css";
@@ -63,7 +64,7 @@ export const ItemsList = createVisualComponent({
       props.modal.current.open({
         header: item.name,
         content: item.desc,
-        footer: <UU5.Bricks.Button content="Close" onClick={props.modal.current.close}/>
+        footer: <UU5.Bricks.Button content="Close" onClick={props.modal.current.close} colorSchema="cyan" bgStyle="outline"/>
       })
     }
 

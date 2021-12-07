@@ -104,10 +104,21 @@ const GetImageData = {
   }
 };
 
+const List = {
+  UC_CODE: `${JOKE_ERROR_PREFIX}create/`,
 
+  invalidDtoIn: class extends JokesMainUseCaseError {
+      constructor() {
+          super(...arguments);
+          this.code = `${List.UC_CODE}invalidDtoIn`;
+          this.message = "DtoIn is not valid.";
+      }
+    },
+  }
 
 module.exports = {
   Create,
   Get,
-  GetImageData
+  GetImageData,
+  List
 };

@@ -16,6 +16,10 @@ class JokeController {
     let dtoOut = await JokeAbl.getImageData(ucEnv.getUri().getAwid(), dtoIn);
     return ucEnv.setBinaryDtoOut(dtoOut, dtoIn.contentDisposition);
   }
+
+  list(ucEnv) {
+    return JokeAbl.list(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
 }
 
 module.exports = new JokeController();
