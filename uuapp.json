@@ -12,6 +12,25 @@
       "appDeploymentUri": null
     }
   },
-  "uu_jokes_maing01-hi": {},
+  "uu_jokes_maing01-hi": {
+    "componentList": [
+      {
+        "code": "UuJokes.Routes.Jokes.CustomTile",
+        "name": "CustomTile",
+        "tagList": [
+          "UuJokes",
+          "Routes",
+          "Jokes",
+          "CustomTile"
+        ],
+        "docCode": "UuJokesRoutesJokesCustomTile",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokes.Routes.Jokes.CustomTile />"
+      }
+    ]
+  },
   "uu_jokes_maing01-server": {}
 }

@@ -8,6 +8,10 @@ import Calls from "../calls";
 import Config from "./config/config.js";
 import Lsi from "../config/lsi.js";
 import Uu5Tiles from "uu5tilesg02";
+import CustomTile from "./jokes/custom-tile";
+import DataListStateResolver from "./jokes/common/data-list-state-resolver";
+import {ModalManager} from './jokes/common/modal-manager' 
+import Tiles  from "./jokes/Tiles";
 
 //@@viewOff:imports
 
@@ -60,13 +64,11 @@ export const Jokes = createVisualComponent({
       // initialData: undefined, // [{"name":"A0 Skydiving","text":"Why don't blind people skydive? Because it scares the crap out of their dogs.","averageRating":0,"ratingCount":0,"visibility":false,"uuIdentity":"127-0000-0000-1","uuIdentityName":"Milan Šatka","awid":"4ef6a7b01b5942ecbfb925b249af987f","categoryList":[],"sys":{"cts":"2020-06-09T08:23:30.699Z","mts":"2020-06-09T08:23:30.699Z","rev":0},"id":"5edf47021d5ce800255e7000","uuAppErrorMap":{}}]
 
     return (
-        <div>
-          Hello
-          {data && JSON.stringify(data)}
-          {/* <ul>
-            {data.map(item)}
-          </ul> */}
-        </div>
+        <ModalManager>
+          <DataListStateResolver dataList={dataListResult}>
+            <Tiles data={data}/>
+            </DataListStateResolver>
+        </ModalManager>
     );
     //@@viewOff:render
   },
