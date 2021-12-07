@@ -16,7 +16,8 @@ export const CustomTile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    data: UU5.PropTypes.object
+    data: UU5.PropTypes.object,
+    handleOpenDetailsModal: UU5.PropTypes.func
   },
   //@@viewOff:propTypes
 
@@ -45,10 +46,12 @@ export const CustomTile = createVisualComponent({
         {/* <div>Visual Component {STATICS.displayName}</div>
         {UU5.Utils.Content.getChildren(props.children, props, STATICS)}
         {props.data&& JSON.stringify(props.data)} */}
-        <UU5.Bricks.Text content={joke?.data?.name}/>
+        <UU5.Bricks.Card width={250} className="uu5-common-padding-s"> 
+        <UU5.Bricks.Header content={joke?.data?.name} level="5"/>
         <UU5.Bricks.Text content={joke?.data?.id}/>
         <UU5.Bricks.Text content={joke?.data?.uuIdentityName}/>
-        <UU5.Bricks.Button content="Update" colorSchema="cyan" bgStyle="outline"/>
+        <UU5.Bricks.Button colorSchema="cyan"  bgStyle="outline" onClick={()=> props.handleOpenDetailsModal(joke?.data)} >More info<UU5.Bricks.Icon icon="plus4u-attachment"/></UU5.Bricks.Button> 
+        </UU5.Bricks.Card>
       </div>
     ) : null;
     //@@viewOff:render
@@ -56,3 +59,4 @@ export const CustomTile = createVisualComponent({
 });
 
 export default CustomTile;
+// props.handleOpenDetailsModal(joke?.data)

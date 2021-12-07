@@ -5,6 +5,7 @@ import Config from "./config/config";
 import Uu5Tiles from "uu5tilesg02";
 
 import CustomTile from "./custom-tile";
+import { useContextModal } from "./common/modal-manager";
 //@@viewOff:imports
 
 const STATICS = {
@@ -28,8 +29,22 @@ export const Tiles = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
     const { data } = props;
+
+    const [open, close] = useContextModal()
+    //@@viewOn:private
+    function handleOpenDetailsModal(data) {
+      open({
+        header: <UU5.Bricks.Header level={4} content="Modal details" colorSchema="cyan"  />,
+        content:
+        <div> 
+        <UU5.Bricks.Header content={JSON.stringify(data.name)} level="6"/>
+        <UU5.Bricks.Rating value={data.averageRating} />
+        </div>
+        ,
+        footer: <div></div>,
+      });
+    }
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -53,7 +68,7 @@ export const Tiles = createVisualComponent({
           tileSpacing={8}
           rowSpacing={8}
         >
-          <CustomTile />
+          <CustomTile handleOpenDetailsModal={handleOpenDetailsModal} />
         </Uu5Tiles.Grid>
       </Uu5Tiles.ControllerProvider>
     ) : null;
