@@ -15,6 +15,9 @@ const Lsi = {
     },
     some:{
       en: "Some"
+    },
+    jokes:{
+      en: "Jokes"
     }
   },
 

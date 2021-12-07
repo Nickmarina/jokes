@@ -15,4 +15,8 @@ const jokeCreateDtoInType = shape({
   });
 
   const listListDtoInType = shape({
+    pageInfo: shape({
+      pageIndex: integer(),
+      pageSize: integer()
+    })
   })

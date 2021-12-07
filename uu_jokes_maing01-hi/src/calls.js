@@ -12,7 +12,7 @@ let Calls = {
     let response = await Plus4U5.Common.Calls.call(method, url, dtoIn, clientOptions);
     return response.data;
   },
-
+  
   loadDemoContent(dtoIn) {
     let commandUri = Calls.getCommandUri("loadDemoContent");
     return Calls.call("get", commandUri, dtoIn);
@@ -36,6 +36,11 @@ let Calls = {
   async initAndGetWorkspace(dtoInData) {
     await Calls.initWorkspace(dtoInData);
     return await Calls.getWorkspace();
+  },
+  
+  jokeList(dtoInData) {
+    let commandUri = Calls.getCommandUri("joke/list");
+    return Calls.call("get", commandUri, dtoInData);
   },
 
   /*

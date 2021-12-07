@@ -10,6 +10,7 @@ import Left from "./left";
 import Bottom from "./bottom";
 import Home from "../routes/home";
 import Some from "../routes/some";
+import Jokes from "../routes/jokes";
 //@@viewOff:imports
 
 const STATICS = {
@@ -28,6 +29,7 @@ const ROUTES = {
   home: { component: <Home /> },
   about: { component: <About /> },
   some: {component :<Some/>},
+  jokes: {component :<Jokes/>},
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
   controlPanel: { component: <ControlPanel /> },
 };
