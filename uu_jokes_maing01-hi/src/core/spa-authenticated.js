@@ -10,7 +10,7 @@ import Left from "./left";
 import Bottom from "./bottom";
 import Home from "../routes/home";
 import Some from "../routes/some";
-import Jokes from "../routes/jokes";
+import Jokes from "../routes/jokes/jokes";
 //@@viewOff:imports
 
 const STATICS = {

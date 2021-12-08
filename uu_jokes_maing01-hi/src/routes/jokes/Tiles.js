@@ -6,6 +6,10 @@ import Uu5Tiles from "uu5tilesg02";
 
 import CustomTile from "./custom-tile";
 import { useContextModal } from "./common/modal-manager";
+import {useJoke} from './context/use-joke';
+import { JokeUpdateHeader, JokeUpdateControls, JokeUpdateForm } from "./joke-update-form/joke-update-form";
+
+
 //@@viewOff:imports
 
 const STATICS = {
@@ -29,20 +33,26 @@ export const Tiles = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    const { data } = props;
+    // const { data } = props;
 
     const [open, close] = useContextModal()
+    const {data, hanlerMap} = useJoke()
     //@@viewOn:private
     function handleOpenDetailsModal(data) {
       open({
-        header: <UU5.Bricks.Header level={4} content="Modal details" colorSchema="cyan"  />,
-        content:
-        <div> 
-        <UU5.Bricks.Header content={JSON.stringify(data.name)} level="6"/>
-        <UU5.Bricks.Rating value={data.averageRating} />
-        </div>
-        ,
-        footer: <div></div>,
+        header:<JokeUpdateHeader/>,
+        content: <JokeUpdateForm data={data} closeModal={close}/>,
+        footer:<JokeUpdateControls/>
+
+        // header: <UU5.Bricks.Header level={4} content="Modal details" colorSchema="cyan"  />,
+        // content:
+        // <div> 
+        // <UU5.Bricks.Header content={data.name} level="6"/>
+        // <UU5.Bricks.Rating value={data.averageRating} />
+        // <UU5.Bricks.Text content ={data.text}/>
+        // </div>
+        // ,
+        // footer: <div></div>,
       });
     }
     //@@viewOff:private
