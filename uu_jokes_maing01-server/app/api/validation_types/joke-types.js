@@ -28,3 +28,8 @@ const jokeCreateDtoInType = shape({
     categoryIdList: array(id(), 10),
     image: binary()
   })
+
+  const jokeDeleteDtoInType = shape({
+    id: id().isRequired()
+  })
+  

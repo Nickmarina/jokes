@@ -26,6 +26,9 @@ const WARNINGS = {
   },
   jokeUnsupportedKeys:{
     code: `${Errors.Update.UC_CODE}unsupportedKeys`,
+  },
+  deleteUnsupportedKeys:{
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
   }
 }
 
@@ -211,6 +214,33 @@ class JokeAbl {
           uuAppErrorMap
       }
 
+  }
+
+  async delete(uri, dtoIn, uuAppErrorMap = {}) {
+    const awid = uri.getAwid();
+    // HDS 2 - data validation
+
+    let validationResult = this.validator.validate("jokeDeleteDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.deleteUnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+    
+    // HDS 3
+    const joke = await this.jokeDao.get(awid, dtoIn.id)
+    if(!joke){
+      throw new Errors.Delete.jokeDoesNotExist({ uuAppErrorMap },{joke: dtoIn.id})
+    }
+
+     const joker = await this.jokeDao.delete( awid, dtoIn.id );
+     console.log(joker)
+
+    // HDS 4
+    return {
+      uuAppErrorMap,
+    };
   }
     
 }

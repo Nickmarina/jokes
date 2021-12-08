@@ -144,10 +144,33 @@ const List = {
       },
     }
 
+    const Delete = {
+      UC_CODE: `${JOKE_ERROR_PREFIX}delete/`,
+      InvalidDtoIn: class extends JokesMainUseCaseError {
+        constructor() {
+          super(...arguments);
+          this.code = `${Delete.UC_CODE}invalidDtoIn`;
+          this.message = "DtoIn is not valid.";
+        }
+      },
+
+      
+      jokeDoesNotExist: class extends JokesMainUseCaseError {
+        constructor() {
+            super(...arguments);
+            this.code = `${Delete.UC_CODE}jokeDoesNotExist`;
+            this.message = "Joke does not exist.";
+        }
+      },
+    }
+
+      
+
 module.exports = {
   Create,
   Get,
   GetImageData,
   List,
-  Update
+  Update,
+  Delete
 };

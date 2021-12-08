@@ -24,12 +24,26 @@ const JokeUpdateForm = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    const {closeModal, data} = props
+    const { closeModal, data: { data, handlerMap } } = props;
     const [isLoading, setIsLoading]=useState(false)
     const inputLsi = useLsiValues(Lsi)
 
-    function handleUpdate(){
-      console.log('LATER')
+    async function handleUpdate(formData) {
+      const { values, component } = formData;
+    
+      try{
+        await handlerMap.update((values));
+        component.getAlertBus().addAlert({
+          content: <UU5.Common.Error content={<UU5.Bricks.Lsi lsi={Lsi.saveSuccess} />} />,
+          colorSchema: "success",
+        });
+      }
+      catch{
+        component.getAlertBus().addAlert({
+          content: <UU5.Common.Error content={<UU5.Bricks.Lsi lsi={Lsi.saveError} />} />,
+          colorSchema: "danger",
+        });
+      }
     }
     //@@viewOn:private
     //@@viewOff:private
@@ -52,7 +66,17 @@ const JokeUpdateForm = createVisualComponent({
         progressIndicator={<UU5.Bricks.Loading />}
         disabled={isLoading}
       >
-        {JSON.stringify(data)}
+        <UU5.Forms.Text 
+        label="Name"
+        name="name"
+        value={data.name}
+        />
+        <UU5.Forms.Text 
+        label="Text"
+        name="text"
+        value={data.text}
+        />
+        {/* {JSON.stringify(data)} */}
       </UU5.Forms.ContextForm>
     );
     //@@viewOff:render

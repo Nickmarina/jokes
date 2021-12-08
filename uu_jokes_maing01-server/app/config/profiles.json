@@ -40,6 +40,10 @@
       "joke/update": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "joke/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

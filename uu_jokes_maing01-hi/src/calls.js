@@ -52,6 +52,10 @@ let Calls = {
     let commandUri = Calls.getCommandUri("joke/update");
     return Calls.call("post", commandUri, dtoInData);
   },
+  jokeDelete(dtoIn) {
+    let commandUri = Calls.getCommandUri("joke/delete");
+    return Calls.call("post", commandUri, dtoIn);
+  },
 
   /*
   For calling command on specific server, in case of developing client site with already deployed

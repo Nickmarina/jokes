@@ -23,6 +23,9 @@ const Lsi = {
     saveError: {
       en: "Saving was failed",
     },
+    saveSuccess: {
+      en: "Saved=)",
+    },
     wrongDescLength: {
       en: "Value should be not longer then 5000 symbols.",
     },

@@ -11,6 +11,10 @@ class JokeController {
     return JokeAbl.get(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
   }
 
+  delete(ucEnv) {
+    return JokeAbl.delete(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
+  }
+
   async getImageData(ucEnv) {
     let dtoIn = ucEnv.getDtoIn();
     let dtoOut = await JokeAbl.getImageData(ucEnv.getUri().getAwid(), dtoIn);

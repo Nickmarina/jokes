@@ -33,7 +33,7 @@ export const Tiles = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    // const { data } = props;
+ 
 
     const [open, close] = useContextModal()
     const {data, hanlerMap} = useJoke()

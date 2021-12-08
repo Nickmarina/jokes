@@ -55,12 +55,12 @@ export const JokesLoader = createComponent({
       handlerMap: {
         load: Calls.jokeList,
       },
-      itemHandlerMap: {}
+      itemHandlerMap: {
+        update: Calls.jokeUpdate,
+        delete: Calls.jokeDelete,
+      }
     });
     
-    // console.log("dataListResult",dataListResult)
-    const {data,handlerMap} = dataListResult;
-
     return (
        <JokeContext.Provider value={dataListResult}>{props.children}</JokeContext.Provider>
     );

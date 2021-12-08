@@ -25,7 +25,16 @@ class JokeMongo extends UuObjectDao {
 
     async list (awid){
       return await super.find({awid});
-  }
+   }
+
+    async delete(awid, id){
+      let filter = {
+        awid,
+        id
+      };
+      return await super.deleteOne(filter);
+    }
+
   }
   
   module.exports = JokeMongo;

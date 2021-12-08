@@ -27,7 +27,7 @@ export const CustomTile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const {data: joke} = props
+    const { handleOpenDetailsModal, data: joke } = props;
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -49,8 +49,9 @@ export const CustomTile = createVisualComponent({
         <UU5.Bricks.Card width={250} className="uu5-common-padding-s"> 
         <UU5.Bricks.Header content={joke?.data?.name} level="5"/>
         <UU5.Bricks.Text content={joke?.data?.uuIdentityName}/>
-        <UU5.Bricks.Button colorSchema="cyan"  bgStyle="outline" onClick={()=> props.handleOpenDetailsModal(joke?.data)} ><UU5.Bricks.Icon icon="plus4u-attachment"/></UU5.Bricks.Button> 
-        <UU5.Bricks.Button colorSchema="red" bgStyle="outline" ><UU5.Bricks.Icon icon="plus4u-bin"/></UU5.Bricks.Button> </UU5.Bricks.Card>
+        <UU5.Bricks.Button colorSchema="cyan"  bgStyle="outline" onClick={()=> handleOpenDetailsModal(joke)} ><UU5.Bricks.Icon icon="plus4u5-pencil"/></UU5.Bricks.Button> 
+        <UU5.Bricks.Button colorSchema="red" bgStyle="outline" ><UU5.Bricks.Icon icon="plus4u-bin"/></UU5.Bricks.Button>
+        </UU5.Bricks.Card> 
       </div>
     ) : null;
     //@@viewOff:render
