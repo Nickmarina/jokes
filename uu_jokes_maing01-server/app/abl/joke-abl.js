@@ -24,6 +24,9 @@ const WARNINGS = {
   listUnsupportedKeys: {
     code: `${Errors.List.UC_CODE}unsupportedKeys`,
   },
+  jokeUnsupportedKeys:{
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
+  }
 }
 
 class JokeAbl {
@@ -178,6 +181,37 @@ class JokeAbl {
         uuAppErrorMap
       }
     }
+
+    async update(uri, dtoIn, session, uuAppErrorMap = {}) {
+      const awid = uri.getAwid();
+       // HDS 1
+       const validationResult = this.validator.validate("jokeUpdateDtoInType", dtoIn);
+       uuAppErrorMap = ValidationHelper.processValidationResult(
+           dtoIn,
+           validationResult,
+           WARNINGS.jokeUnsupportedKeys.code,
+           Errors.Update.InvalidDtoIn
+       ); 
+   
+      const joke = await this.jokeDao.get(awid, dtoIn.id)
+      if(!joke){
+          throw new Errors.Update.jokeDoesNotExist({ uuAppErrorMap },{joke: dtoIn.id})
+      }
+      const uuObject = {...dtoIn, awid}
+      let updatedJoke  = null;
+      try {
+        updatedJoke =  await this.jokeDao.update(uuObject);
+      } catch (err) {
+        throw new Errors.Update.jokeDaoUpdateFailed({ uuAppErrorMap }, err);
+      }
+
+ 
+      return{
+          ...updatedJoke,
+          uuAppErrorMap
+      }
+
+  }
     
 }
 

@@ -105,7 +105,7 @@ const GetImageData = {
 };
 
 const List = {
-  UC_CODE: `${JOKE_ERROR_PREFIX}create/`,
+  UC_CODE: `${JOKE_ERROR_PREFIX}list/`,
 
   invalidDtoIn: class extends JokesMainUseCaseError {
       constructor() {
@@ -116,9 +116,38 @@ const List = {
     },
   }
 
+  const Update = {
+    UC_CODE: `${JOKE_ERROR_PREFIX}update/`,
+
+    invalidDtoIn: class extends JokesMainUseCaseError {
+      constructor() {
+          super(...arguments);
+          this.code = `${Update.UC_CODE}invalidDtoIn`;
+          this.message = "DtoIn is not valid.";
+      }
+    },
+  
+    jokeDaoUpdateFailed: class extends JokesMainUseCaseError {
+        constructor() {
+            super(...arguments);
+            this.code = `${Update.UC_CODE}jokeDaoUpdateFailed`;
+            this.message = "joke Dao Update Failed.";
+        }
+      },
+
+      jokeDoesNotExist: class extends JokesMainUseCaseError {
+        constructor() {
+            super(...arguments);
+            this.code = `${Update.UC_CODE}jokeDoesNotExist`;
+            this.message = "Joke does not exist.";
+        }
+      },
+    }
+
 module.exports = {
   Create,
   Get,
   GetImageData,
-  List
+  List,
+  Update
 };

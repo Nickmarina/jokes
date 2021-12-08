@@ -17,6 +17,10 @@ class JokeController {
     return ucEnv.setBinaryDtoOut(dtoOut, dtoIn.contentDisposition);
   }
 
+  update(ucEnv) {
+    return JokeAbl.update(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
+  } 
+
   list(ucEnv) {
     return JokeAbl.list(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

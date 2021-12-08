@@ -35,6 +35,11 @@
         "realization": "api/controllers/JokeController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "joke/update": {
+        "realization": "api/controllers/JokeController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }
