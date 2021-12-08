@@ -35,26 +35,42 @@ export const Tiles = createVisualComponent({
   render(props) {
  
 
-    const [open, close] = useContextModal()
-    const {data, hanlerMap} = useJoke()
+    const [open, close, showAlert, getConfirmRef] = useContextModal()
+    const {data, handlerMap} = useJoke()
     //@@viewOn:private
     function handleOpenDetailsModal(data) {
       open({
         header:<JokeUpdateHeader/>,
-        content: <JokeUpdateForm data={data} closeModal={close}/>,
+        content: <JokeUpdateForm data={data} closeModal={close}  showAlert={showAlert}/>,
         footer:<JokeUpdateControls/>
-
-        // header: <UU5.Bricks.Header level={4} content="Modal details" colorSchema="cyan"  />,
-        // content:
-        // <div> 
-        // <UU5.Bricks.Header content={data.name} level="6"/>
-        // <UU5.Bricks.Rating value={data.averageRating} />
-        // <UU5.Bricks.Text content ={data.text}/>
-        // </div>
-        // ,
-        // footer: <div></div>,
       });
     }
+
+    function handleOpenCreateModal() {
+      open({
+        header: <JokeUpdateHeader />,
+        content: <JokeUpdateForm isCreateForm={true} handlerMap={handlerMap} closeModal={close} showAlert={showAlert} />,
+        footer: <JokeUpdateControls isCreateForm={true} />,
+      });
+    }
+
+    function handleItemSearch(item, value) {
+      let fragments = value.split(/[\s,.-;:_]/);
+      return fragments.some((frag) => {
+        return item.data.name.toLowerCase().indexOf(frag.toLowerCase()) !== -1;
+      });
+    }
+    
+    const getActions = () => [
+      {
+        active: true,
+        icon: "mdi-plus-circle",
+        content: "Add",
+        colorSchema: "green",
+        bgStyle: "outline",
+        onClick: handleOpenCreateModal,
+      },
+    ]
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -72,18 +88,23 @@ export const Tiles = createVisualComponent({
       <Uu5Tiles.ControllerProvider
         data={data}
       >
+        <Uu5Tiles.ActionBar
+          onItemSearch={handleItemSearch}
+          actions={getActions()}
+        />
         <Uu5Tiles.Grid
           tileMinWidth={200}
           tileMaxWidth={400}
           tileSpacing={8}
           rowSpacing={8}
         >
-          <CustomTile handleOpenDetailsModal={handleOpenDetailsModal} />
+          <CustomTile  handleOpenDetailsModal={handleOpenDetailsModal} getConfirmRef={getConfirmRef}/>
         </Uu5Tiles.Grid>
       </Uu5Tiles.ControllerProvider>
     ) : null;
     //@@viewOff:render
   },
 });
+
 
 export default Tiles;

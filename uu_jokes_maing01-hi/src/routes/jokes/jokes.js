@@ -2,13 +2,8 @@
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import { createVisualComponent, useState, useDataList, useRef } from "uu5g04-hooks";
-import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
-import Calls from "../../calls";
 import Config from "../config/config.js";
-import Lsi from "../../config/lsi.js";
-import Uu5Tiles from "uu5tilesg02";
-import CustomTile from "./custom-tile";
 import DataListStateResolver from "./common/data-list-state-resolver";
 import {ModalManager} from './common/modal-manager' 
 import Tiles  from "./Tiles";
@@ -19,7 +14,7 @@ import JokeContext from "./context/joke-context";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "Some",
+  displayName: Config.TAG + "Jokes",
   //@@viewOff:statics
 };
 

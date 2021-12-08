@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
-import { createComponent, useState, useDataList, useRef } from "uu5g04-hooks";
+import { createComponent, useDataList } from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
 import Calls from "../../calls";
@@ -54,6 +54,7 @@ export const JokesLoader = createComponent({
     const dataListResult = useDataList({
       handlerMap: {
         load: Calls.jokeList,
+        create: Calls.jokeCreate,
       },
       itemHandlerMap: {
         update: Calls.jokeUpdate,

@@ -28,6 +28,7 @@ export const CustomTile = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const { handleOpenDetailsModal, data: joke } = props;
+    const confirm = props.getConfirmRef();
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -43,14 +44,24 @@ export const CustomTile = createVisualComponent({
 
     return currentNestingLevel ? (
       <div {...attrs}>
-        {/* <div>Visual Component {STATICS.displayName}</div>
-        {UU5.Utils.Content.getChildren(props.children, props, STATICS)}
-        {props.data&& JSON.stringify(props.data)} */}
-        <UU5.Bricks.Card width={250} className="uu5-common-padding-s"> 
-        <UU5.Bricks.Header content={joke?.data?.name} level="5"/>
-        <UU5.Bricks.Text content={joke?.data?.uuIdentityName}/>
-        <UU5.Bricks.Button colorSchema="cyan"  bgStyle="outline" onClick={()=> handleOpenDetailsModal(joke)} ><UU5.Bricks.Icon icon="plus4u5-pencil"/></UU5.Bricks.Button> 
-        <UU5.Bricks.Button colorSchema="red" bgStyle="outline" ><UU5.Bricks.Icon icon="plus4u-bin"/></UU5.Bricks.Button>
+
+        <UU5.Bricks.Card width={300} className="uu5-common-padding-s"> 
+        <UU5.Bricks.Header content={joke?.data?.name} colorSchema="cyan" level="5"/>
+        <UU5.Bricks.Text content={joke?.data?.text}/>
+        <UU5.Bricks.Text disabled>By : {joke?.data?.uuIdentityName}</UU5.Bricks.Text>
+        <UU5.Bricks.Button colorSchema="cyan"  bgStyle="outline" 
+              onClick={()=> handleOpenDetailsModal(joke)} >
+        <UU5.Bricks.Icon icon="plus4u5-pencil"/></UU5.Bricks.Button> 
+        <UU5.Bricks.Button colorSchema="red" bgStyle="outline"
+             onClick={() => {
+              return confirm.open({
+                header: <UU5.Bricks.Header level={4} content="Delete joke" />,
+                content: <UU5.Bricks.Div>Are you sure you want to delete this joke?</UU5.Bricks.Div>,
+                on: () => confirm.close(),
+                onConfirm: joke?.handlerMap?.delete
+              })
+            }} ><UU5.Bricks.Icon icon="plus4u-bin"/>
+        </UU5.Bricks.Button>
         </UU5.Bricks.Card> 
       </div>
     ) : null;

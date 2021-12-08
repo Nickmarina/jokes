@@ -24,15 +24,20 @@ const JokeUpdateForm = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    const { closeModal, data: { data, handlerMap } } = props;
+    const { closeModal, data, showAlert, handlerMap, isCreateForm} = props;
     const [isLoading, setIsLoading]=useState(false)
     const inputLsi = useLsiValues(Lsi)
 
     async function handleUpdate(formData) {
       const { values, component } = formData;
+      let action;
+
+      isCreateForm ? action = handlerMap.create : action = data?.handlerMap?.update
     
+      component.setPending();
+
       try{
-        await handlerMap.update((values));
+        await action(values);
         component.getAlertBus().addAlert({
           content: <UU5.Common.Error content={<UU5.Bricks.Lsi lsi={Lsi.saveSuccess} />} />,
           colorSchema: "success",
@@ -44,6 +49,9 @@ const JokeUpdateForm = createVisualComponent({
           colorSchema: "danger",
         });
       }
+
+      component.setReady();
+      closeModal();
     }
     //@@viewOn:private
     //@@viewOff:private
@@ -69,14 +77,13 @@ const JokeUpdateForm = createVisualComponent({
         <UU5.Forms.Text 
         label="Name"
         name="name"
-        value={data.name}
+        value={data?.data?.name}
         />
         <UU5.Forms.Text 
         label="Text"
         name="text"
-        value={data.text}
+        value={data?.data?.text}
         />
-        {/* {JSON.stringify(data)} */}
       </UU5.Forms.ContextForm>
     );
     //@@viewOff:render
@@ -93,10 +100,10 @@ const JokeUpdateHeader = () => {
   );
 };
 
-const JokeUpdateControls = () => {
+const JokeUpdateControls = ({ isCreateForm }) => {
   return (
     <UU5.Forms.ContextControls
-      buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={Lsi.submit('Update')} /> }}
+      buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={isCreateForm ? Lsi.submit("Create") : Lsi.submit("Update")} /> }}
       buttonCancelProps={{ content: <UU5.Bricks.Lsi lsi={Lsi.cancel} /> }}
     />
   );
